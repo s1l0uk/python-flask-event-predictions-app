@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block user_nav %}
+{% endblock %}
+
+{% block user_links %}
+{% endblock %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="text-margin-top text-margin-bottom">Hello World!!</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-8">
+                <p>
+                    It's that time, and another {{ event.name }} is upon us and this
+                    brings us another occasion to pit everyone against each other for
+                    the title of the ultimate football clairvoyant!
+                    Think that person is you? If so, join us in the
+                    {% if event.sponser.sponser_name %}{{ event.sponser.sponser_name }}'s{%endif %}
+                    {{ event.name }} Predictions Competition!
+                </p>
+
+                <p class="text-margin-top">The game will run two concurrent competitions:</p>
+
+                <h4 class="text-margin-top">The sweepstake competition</h4>
+                <p>
+                    The basic game that will allocate you a team at random when you sign up!
+                    The longer your team stays in the tournament the closer to victory you will
+                    be!
+                    However, that's not all! There is a good chance that there will be more players
+                    in this competition than teams available to allocate... When this happens the
+                    teams draw will be reset and a fresh set will start to be allocated, this means
+                    you may have to share the glory if you are sharing your team!
+                </p>
+
+                <h4 class="text-margin-top">The score prediction competition</h4>
+                <p>
+                    The second competition is a fun predictions game to help crown the true winner!
+
+                    Are you the next <a href="https://en.wikipedia.org/wiki/Paul_the_Octopus">Paul the Octopus</a>?
+                    How many correct predictions for each matches score will you make? For each match. You will:
+                    <ul>
+                        <li>Earn 1 point for each game where you correctly predict the result, but not the score</li>
+                        <li>Earn 3 points for each game where you predict the exact score</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-8 text-margin-top">
+                <div class="well">
+                    <h4>There are currently {{ user_count }} participants!</h4>
+                </div>
+            </div>
+        </div>
+
+        <h3>I'm in, let's go!</h3>
+        <div class="row">
+            <div class="col-sm-12 text-margin-top">
+                <h4>Log in with SSO via one of the following:</h4>
+                {% for login in sso_login_urls %}
+                <a class=" btn btn-primary btn-lg" href="{{ login.url }}" role="button">{{ login.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

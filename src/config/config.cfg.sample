@@ -1,0 +1,21 @@
+[flask]
+secret_key = 
+# corporate_sponser_logo = 
+# corporate_sponser = 
+
+[event]
+api_key = 
+competition = 
+
+[db]
+sqlalchemy_db_url = 
+
+[google_login]
+client_id = 
+client_secret = 
+api_base_url = https://www.google.com/accounts/
+access_token_url = https://accounts.google.com/o/oauth2/token
+authorize_url = https://accounts.google.com/o/oauth2/auth
+jwks_uri = https://www.googleapis.com/oauth2/v3/certs
+userinfo_endpoint = https://openidconnect.googleapis.com/v1/userinfo
+client_kwargs = {"scope": "openid profile email"}

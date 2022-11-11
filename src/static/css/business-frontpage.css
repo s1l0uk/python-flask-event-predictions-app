@@ -1,0 +1,80 @@
+/*!
+ * Start Bootstrap - Business Frontpage HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+body {
+    padding-top: 110px;
+}
+
+.navbar-min-height {
+    height: 70px;
+}
+
+.navbar-txt-colour, .navbar-txt-colour:hover {
+    color: white !important;
+    text-decoration: none;
+}
+
+.navbar-button {
+    float: left;
+    margin-left: 20px;
+}
+
+.container-nav {
+    padding-left: 10px;
+    padding-right: 30px;
+    min-height: 40px;
+    background-color: #616161;
+}
+
+.business-header {
+    height: 400px;
+}
+
+.tagline {
+    padding-top: 130px;
+    text-shadow: 0 0 10px #000;
+    color: #fff;
+}
+
+.img-center {
+    margin: 0 auto;
+}
+
+.img-margin-left {
+    margin-left: 10px;
+}
+
+.img-margin-right {
+    margin-right: 10px;
+}
+
+.form-group-width {
+    min-width: 100%;
+}
+
+.form-width {
+    width: 80px !important;
+}
+
+.text-margin-top {
+    margin-top: 30px;
+}
+
+.text-margin-bottom {
+    margin-bottom: 30px;
+}
+
+.col-sm-1 {
+    width: unset;
+}
+
+.col-sm-2 {
+    text-align: center;
+}
+
+footer {
+    margin: 50px 0;
+}

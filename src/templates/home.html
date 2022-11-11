@@ -1,0 +1,120 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    {% if other_user %}
+        {% set user = other_user %}
+    {% endif %}
+
+    <!-- Image Background Page Header -->
+    <header class="business-header" style="background: url({{ user.allocated_team.crest_url }}) center center no-repeat scroll; background-size: cover;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    {% if not other_user %}
+                    <h1 class="tagline">You've been allocated {{ user.allocated_team.name }} in the sweepstakes</h1>
+                    {% else %}
+                    <h1 class="tagline">{{ user.name }} has been allocated {{ user.allocated_team.name }} in the sweepstakes</h1>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-12">
+                {% if not other_user %}
+                <h1 class="text-margin-top text-margin-bottom">Your score predictions:</h1>
+                {% else %}
+                <h1 class="text-margin-top text-margin-bottom">{{ user.name }}'s score predictions:</h1>
+                {% endif %}
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="row">
+                {% for category, message in messages %}
+                <div class="col-sm-12 alert alert-{{ category }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <p>{{ message }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
+
+        <hr>
+        {% if not other_user %}
+        <form class="form-inline" action="{{ url_for("submit") }}" method="post">
+        {% endif %}
+
+
+            {% for fixture in fixtures %}
+                {% set game = fixture.matchday|string + '_' + fixture.homeTeam.name + '_' + fixture.awayTeam.name %}
+                {% set kick_off = fixture.utcDate|convert_to_datetime %}
+                {% set editable = True if current_time < kick_off and not other_user else False %}
+                {% if fixture.homeTeam.name != "" and fixture.awayTeam.name != "" %}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group form-group-width">
+                            <div class="col-sm-2">
+                                <p>{{ fixture.utcDate|strftime }}</p>
+                            </div>
+                            {% if editable %}
+                            <input type="hidden" name="matchday_{{ loop.index }}" value="{{ fixture.matchday }}">
+                            {% endif %}
+                            <div class="col-sm-2">
+                                <label>{{ fixture.homeTeam.name }}</label>
+                            </div>
+                            <div class="col-sm-1">
+                                {% if editable %}
+                                <input type="hidden" name="home_team_{{ loop.index }}" value="{{ fixture.homeTeam.name }}">
+                                <input type="number" min="0" max="100" name="home_score_{{ loop.index }}" class="form-control form-width" id="home_score_{{ loop.index }}" value="{{ user.predictions.get(game).home_score }}">
+                                {% else %}
+                                <p>{{ user.predictions.get(game).home_score }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-1">
+                                <p>-</p>
+                            </div>
+                            <div class="col-sm-1">
+                                {% if editable %}
+                                <input type="hidden" name="away_team_{{ loop.index }}" value="{{ fixture.awayTeam.name }}">
+                                <input type="number" min="0" max="100" name="away_score_{{ loop.index }}" class="form-control form-width" id="away_score_{{ loop.index }}" value="{{ user.predictions.get(game).away_score }}">
+                                {% else %}
+                                <p>{{ user.predictions.get(game).away_score }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-2">
+                                <label>{{ fixture.awayTeam.name }}</label>
+                            </div>
+                            <div class="col-sm-3 well well-sm">
+                                <p>Actual score: {{ points.get(game).result }}</p>
+                                <p>Points gained: {{ points.get(game).points }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                {% endif %}
+            {% endfor %}
+            <!-- /.row -->
+
+            {% if not other_user %}
+            <div class="row text-margin-bottom">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary" value="Submit">Save predictions</button>
+                </div>
+            </div>
+            {% endif %}
+            <!-- /.row -->
+        </form>
+        <!-- /.form -->
+
+    </div>
+    <!-- /.container -->
+{% endblock %}

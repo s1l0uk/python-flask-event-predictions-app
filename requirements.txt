@@ -1,0 +1,9 @@
+gunicorn
+flask
+flask-sqlalchemy
+pytz
+dateutils
+requests
+configparser
+authlib
+pymysql

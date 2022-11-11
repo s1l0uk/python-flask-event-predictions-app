@@ -1,0 +1,31 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    command: --init-file /init.sql
+    volumes:
+        - ./init.sql:/init.sql
+    environment:
+      MYSQL_DATABASE: 'mysql'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - "3306:3306"
+      - "3307:3307"
+  app:
+    build: .
+    container_name: test
+    links:
+        - mysql
+    environment:
+      SQLALCHEMY_DATABASE_URI: mysql://root:root@mysql:3306/test_db
+      FLASK_SECRET_KEY: 
+      EVENT_ID: 
+      EVENT_API_KEY: 
+      whitelisted_domains: 
+      GOOGLE_CLIENT_ID: 
+      GOOGLE_CLIENT_SECRET: 
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql

@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="text-margin-top text-margin-bottom">Sweepstakes allocations:</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-striped table-hover table-bordered">
+                    <tr>
+                        <td><b>Team</b></td>
+                        <td><b>Allocated users</b></td>
+                    </tr>
+                    {% for team in allocations %}
+                    <tr>
+                        <td>{{ team }}</td>
+                        <td>{{ allocations[team] }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

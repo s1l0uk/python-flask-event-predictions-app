@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ event.name + " Predictions Competition" }}">
+    <meta name="author" content="Paul Hardy">
+
+    <title>{{ event.name + " Predictions Competition" }}</title>
+
+    <link rel="shortcut icon" href="{{ event.emblem }}">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/' + css) }}" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top navbar-min-height" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+              <p class="navbar-txt-colour navbar-brand">
+                <span>
+                  <a class="navbar-txt-colour" href="{{ url_for('index') }}">
+                    <img class="img-margin-right" src="{{ event.emblem }}" alt="{{ event.name }}" width="40" height="40">
+                    {% if event.sponser.logo  %}
+                    <img class="img-margin-right" src="{{ event.sponser.logo }}" alt="{{ event.sponser.sponser_name }}" width="100" height="40">
+                    {%endif %}
+              </a></span><a class="navbar-txt-colour" href="{{ url_for('index') }}">
+                    {% if event.sponser.sponser_name %}
+                      {{ event.sponser.sponser_name }}'s
+                    {%endif %}
+                    {{ event.name + " Predictions Competition " + event.currentSeason.startDate.split('-')[0]  }}
+                </a></p>
+            </div>
+            {% block user_nav %}
+            <div class="collapse navbar-collapse navbar-right navbar-txt-colour navbar-brand" id="dropdown">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <p>Hi {{ user.name }}!<span><img class="img-margin-left img-circle" src="{{ picture }}" alt="" width="40" height="40"></span></p>
+                    </li>
+                </ul>
+            </div>
+            {% endblock %}
+        </div>
+        {% block user_links %}
+        <div class="container-nav">
+            <div class="container">
+                <div class="nav navbar-nav">
+                    <button type="button" class="navbar-toggle navbar-button" data-toggle="collapse" data-target="#links">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="links">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a class="navbar-txt-colour navbar-brand" href="{{ url_for('home') }}">Home</a>
+                        </li>
+                        <li>
+                            <a class="navbar-txt-colour navbar-brand" href="{{ url_for('sweepstakes') }}">View all sweepstakes allocations</a>
+                        </li>
+                        <li>
+                            <a class="navbar-txt-colour navbar-brand" href="{{ url_for('predictions') }}">View the predictions leaderboard</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </nav>
+
+
+    <!-- Page Content -->
+    {% block content %}
+    <div class="container">
+        <p>Content goes here</p>
+    </div>
+    {% endblock %}
+
+    <!-- Footer -->
+    <div class="container">
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                  <p>Copyright
+                    {% if event.sponser.sponser_name  %}
+                      {{ event.sponser.sponser_name| capitalize + " "}}
+                    {%endif %}
+                    &copy;
+                    {{ event.currentSeason.startDate.split('-')[0] }}</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
